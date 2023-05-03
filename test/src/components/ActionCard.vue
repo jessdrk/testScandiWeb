@@ -1,6 +1,11 @@
 <template>
   <div class="home__card">
-    <input class="home__card__input" type="checkbox">
+    <input 
+      class="home__card__input" 
+      type="checkbox"
+      :checked="checked"
+      @change="$emit('checked', id, $event.target.checked)"
+    >
     <div class="home__card__group">
       <h1 class="home__card__titles">
         {{ sku }}
@@ -11,14 +16,14 @@
       <h1 class="home__card__titles">
         {{ price }} {{ priceIn }}
       </h1>
-      <h1 v-if="isSize" class="home__card__titles">
-        {{ titleSize }} {{ size }} {{ sizeIn }}
+      <h1 v-if="type === 'DVD'" class="home__card__titles">
+        {{ titleSize }} {{ valueProduct }} {{ sizeIn }}
       </h1>
-      <h1 v-if="isWeight" class="home__card__titles">
-        {{ titleWeight }} {{ weight }} {{ weightIn }}
+      <h1 v-if="type === 'Book'" class="home__card__titles">
+        {{ titleWeight }} {{ valueProduct }} {{ weightIn }}
       </h1>
-      <h1 v-if="isDimension" class="home__card__titles">
-        {{ titleDimension }} {{ dimension }}
+      <h1 v-if="type === 'Furniture'" class="home__card__titles">
+        {{ titleDimension }} {{ valueProduct }}
       </h1>
     </div>
   </div>
@@ -27,6 +32,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     sku: {
       type: String,
       required: true
@@ -39,28 +48,23 @@ export default {
       type: String,
       required: true
     },
-    size: {
+    type: {
       type: String,
       required: true
     },
-    weight: {
+    valueProduct: {
       type: String,
       required: true
     },
-    dimension: {
-      type: String,
-      required: true
+    modelValue: {
+      type: Array,
+      default() {
+        return [];
+      }
     },
-    isSize: {
-      type: Boolean
-    },
-    isWeight: {
-      type: Boolean
-    },
-    isDimension: {
-      type: Boolean
-    }
+    checked: Boolean
   },
+  emits: ['checked'],
   data() {
     return {
       priceIn: '$',

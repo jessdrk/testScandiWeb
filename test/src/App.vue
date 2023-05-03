@@ -12,91 +12,21 @@
         id="delete-product-btn"
         text="MASS DELETE"
         color="home__button__red"
+        @click="deleteProduct"
       />
     </header>
     <main class="home__main">
       <action-card
-        sku="JVC200123"
-        name="Acme DISC"
-        price="1.00"
-        size="700"
-        is-size="true"
-      /><action-card
-        sku="JVC200123"
-        name="Acme DISC"
-        price="1.00"
-        size="700"
-        is-size="true"
-      />
-      <action-card
-        sku="JVC200123"
-        name="Acme DISC"
-        price="1.00"
-        size="700"
-        is-size="true"
-      />
-      <action-card
-        sku="JVC200123"
-        name="Acme DISC"
-        price="1.00"
-        size="700"
-        is-size="true"
-      />
-      <action-card
-        sku="GGWP0007"
-        name="War and Peace"
-        price="20.00"
-        weight="2"
-        is-weight="true"
-      />
-      <action-card
-        sku="GGWP0007"
-        name="War and Peace"
-        price="20.00"
-        weight="2"
-        is-weight="true"
-      />
-      <action-card
-        sku="GGWP0007"
-        name="War and Peace"
-        price="20.00"
-        weight="2"
-        is-weight="true"
-      />
-      <action-card
-        sku="GGWP0007"
-        name="War and Peace"
-        price="20.00"
-        weight="2"
-        is-weight="true"
-      />
-      <action-card
-        sku="TR120555"
-        name="Chair"
-        price="40.00"
-        dimension="24x45x15"
-        is-dimension="true"
-      />
-      <action-card
-        sku="TR120555"
-        name="Chair"
-        price="40.00"
-        dimension="24x45x15"
-        is-dimension="true"
-      />
-      <action-card
-        sku="TR120555"
-        name="Chair"
-        price="40.00"
-        dimension="24x45x15"
-        is-dimension="true"
-      />
-      <action-card
-        sku="TR120555"
-        name="Chair"
-        price="40.00"
-        dimension="24x45x15"
-        is-dimension="true"
+        v-for="product in products"
+        :id="product.id"
+        :key="product.id"
+        :sku="product.sku"
+        :name="product.name"
+        :price="product.price"
+        :type="product.product_attribute_type"
+        :value-product="product.product_attribute_value"
+        :checked="checked.includes(product.id)"
+        @checked="updateChecked"
       />
     </main>
     <footer class="home__footer">
@@ -116,7 +46,40 @@ export default {
   data() {
     return {
       titleHeader: 'Product List',
-      titleFooter: 'Scandiweb Test assignment'
+      titleFooter: 'Scandiweb Test assignment',
+      products: [],
+      checked: []
+    }
+  },
+  mounted() {
+  this.fetchProducts();
+  },
+  methods: {
+    async fetchProducts() {
+    try {
+      const response = await fetch('http://localhost:8080/?getAll=1');
+      this.products = await response.json();
+    } catch (error) {
+      console.error(error);
+    }
+    },
+    updateChecked(id, isChecked) {
+      if (isChecked) {
+        this.checked.push(id)
+      } else {
+        this.checked = this.checked.filter((item) => item !== id)
+      }
+    },
+    async deleteProduct() {
+    try {
+      for (let i = 0; i < this.checked.length; i++) {
+        const id = this.checked[i];
+        await fetch(`http://localhost:8080/?deleteProduct&id=${id}`);
+      }
+      await this.fetchProducts();
+    } catch (error) {
+      console.error(error);
+    }
     }
   }
 }
@@ -141,6 +104,7 @@ export default {
     height: max-content;
     font-size: 20px;
     padding: 0.2vw 0.5vw;
+    cursor: pointer;
     &__blue {
       background-color: blue;
     }
@@ -150,6 +114,9 @@ export default {
     &__green {
       background-color: green;
     }
+  }
+  &__button:hover {
+    opacity: 70%;
   }
 
   &__main {
