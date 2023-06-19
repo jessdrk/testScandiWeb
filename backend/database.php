@@ -1,12 +1,16 @@
 <?php
 class Database {
-  private $host = 'mariadb';
-  private $dbname = 'web';
-  private $username = 'root';
-  private $password = 'qwertyui';
+  private $host;
+  private $dbname;
+  private $username;
+  private $password;
   private $conn;
 
   public function getConnection() {
+    $this->host = getenv('DBHOST');
+    $this->dbname = getenv('DBNAME');
+    $this->username = getenv('DBUSERNAME');
+    $this->password = getenv('DBPASSWORD');
     $this->conn = new mysqli($this->host, $this->username, $this->password, $this->dbname);
     if ($this->conn->connect_error) {
       die("Connection failed: " . $this->conn->connect_error);
