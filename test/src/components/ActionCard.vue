@@ -1,7 +1,7 @@
 <template>
   <div class="home__card">
     <input 
-      class="home__card__input" 
+      class="home__card__input delete-checkbox" 
       type="checkbox"
       :checked="checked"
       @change="$emit('checked', id, $event.target.checked)"
@@ -82,13 +82,14 @@ export default {
 .home__card {
   width: 19vw;
   height: 11vw;
-  border: 1px solid black;
+  border: 2px solid rgb(96, 138, 187);
   margin-top: 2vw;
+  background-color: white;
+  border-radius: 5%;
   &__input {
-    margin: 1.5vw 0 0 1.5vw;
+    margin: 0.6vw 0 0 1.2vw;
     width: 1.2vw;
     height: 1.2vw;
-
   }
   &__group {
     display: flex;
@@ -97,8 +98,10 @@ export default {
     justify-content: center;
   }
   &__titles {
-    font-size: 24px;
+    font-size: 20px;
     margin: 0.1vw;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
   }
   
 }
