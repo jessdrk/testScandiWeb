@@ -61,7 +61,7 @@ export default {
   methods: {
     async fetchProducts() {
     try {
-      const response = await fetch('http://backend:8080/?getAll=1');
+      const response = await fetch('http://165.232.127.22:8080/?getAll=1');
       this.products = await response.json();
     } catch (error) {
       console.error(error);
@@ -78,7 +78,7 @@ export default {
     try {
       for (let i = 0; i < this.checked.length; i++) {
         const id = this.checked[i];
-        await fetch(`http://backend:8080/?deleteProduct&id=${id}`);
+        await fetch(`http://165.232.127.22:8080/?deleteProduct&id=${id}`);
       }
       await this.fetchProducts();
     } catch (error) {
