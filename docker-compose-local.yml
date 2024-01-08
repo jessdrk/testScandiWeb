@@ -10,7 +10,7 @@ services:
       - MARIADB_ROOT_PASSWORD=qwertyui 
       - MYSQL_DATABASE=web
     ports:
-      - "127.0.0.1:3306:3306"
+      - "3306:3306"
   frontend:
     build: frontend/.
     ports:
