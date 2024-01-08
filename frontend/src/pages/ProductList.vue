@@ -4,18 +4,20 @@
       <div class="home__header__title">
         {{ title.header }}
       </div>
-      <router-link to="/addproduct">
-        <action-button 
-          text="ADD"
-          color="home__button__green"
+      <div class="home__header__buttons">
+        <router-link to="/addproduct">
+          <action-button 
+            text="ADD"
+            color="home__button__green"
+          />
+        </router-link>
+        <action-button
+          id="delete-product-btn"
+          text="MASS DELETE"
+          color="home__button__red"
+          @click="deleteProduct"
         />
-      </router-link>
-      <action-button
-        id="delete-product-btn"
-        text="MASS DELETE"
-        color="home__button__red"
-        @click="deleteProduct"
-      />
+      </div>
     </header>
     <main class="home__main">
       <action-card
@@ -90,18 +92,29 @@ export default {
 </script>
 
 <style lang="scss">
+body, html {
+  margin: 0;
+  padding: 0;
+}
 .home {
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   &__header {
     border-bottom: 3px solid black;
     align-items: center;
     margin: 0 5vw 0 5vw;
-    display: grid;
-    grid-template-columns: 83% 6% 5%;
+    display: flex;
+    justify-content: space-between;
     &__title {
       font-size: 44px;
       font-family: 'Open Sans', sans-serif;
       font-weight: 400;
+    }
+    &__buttons {
+      display: flex;
+      gap: 20px;
     }
   }
 
@@ -129,10 +142,12 @@ export default {
   }
 
   &__main {
+    flex-grow: 1;
     margin: 0 5vw 0 5.7vw;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     gap: 0.4vw;
+    align-content: flex-start;
   }
 
   &__footer {

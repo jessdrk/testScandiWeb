@@ -4,12 +4,6 @@
       <div class="home__header__title">
         {{ title.headerAdd }}
       </div>
-      <action-button 
-        text="Save"
-        color="home__button__green"
-        type="submit"
-        form="product_form"
-      />
       <router-link to="/">
         <action-button 
           text="Cancel"
@@ -137,9 +131,15 @@
         <div v-if="error" class="home__mainAdd__error">
           {{ error }}
         </div>
+        <action-button 
+        text="Save"
+        color="home__button__green"
+        type="submit"
+        form="product_form"
+      />
       </form>
     </main>
-    <footer class="home__footer absolute">
+    <footer class="home__footer">
       <div class="home__footer__title">
         {{ title.footer }}
       </div>
@@ -321,10 +321,11 @@ export default {
     border-bottom: 3px solid black;
     align-items: center;
     margin: 0 5vw 0 5vw;
-    display: grid;
-    grid-template-columns: 88% 6% 5%;
+    display: flex;
+    justify-content: space-between;
   }
   &__mainAdd {
+    flex-grow: 1;
     margin: 0 5vw 0 5vw;
     padding-top: 2vw;
     &__form {

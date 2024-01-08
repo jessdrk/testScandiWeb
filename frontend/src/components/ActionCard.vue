@@ -98,7 +98,7 @@ export default {
     justify-content: center;
   }
   &__titles {
-    font-size: 20px;
+    font-size: 120%;
     margin: 0.1vw;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
