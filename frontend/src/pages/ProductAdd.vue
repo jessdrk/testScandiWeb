@@ -201,7 +201,9 @@ export default {
   methods:{
     async fetchProducts() {
     try {
-      const response = await fetch('http://165.232.127.22:8080/?getAll=1');
+      const response = await fetch('http://165.232.127.22:8080/?getAll=1', {
+                                      mode: 'no-cors',
+                                    });
       this.products = await response.json();
     } catch (error) {
       console.error(error);
@@ -280,7 +282,9 @@ export default {
       if (!this.isInvalid && this.validateForm() && this.checkSKU(this.product.SKU)) {
         if (this.isDVD === true) {
           try {
-            await fetch(`http://165.232.127.22:8080/?addDVD&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&size=${this.product.size}`);
+            await fetch(`http://165.232.127.22:8080/?addDVD&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&size=${this.product.size}`, {
+                          mode: 'no-cors',
+                        });
             setTimeout(() => {
                 this.$router.push('/');
               }, 500);
@@ -290,7 +294,9 @@ export default {
         }
         if (this.isBook === true) {
           try {
-            await fetch(`http://165.232.127.22:8080/?addBook&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&weight=${this.product.weight}`);
+            await fetch(`http://165.232.127.22:8080/?addBook&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&weight=${this.product.weight}`, {
+                          mode: 'no-cors',
+                        });
             setTimeout(() => {
                 this.$router.push('/');
               }, 500);
@@ -300,7 +306,9 @@ export default {
         }
         if (this.isFurniture === true) {
           try {
-            await fetch(`http://165.232.127.22:8080/?addFurniture&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&dimension=${this.product.height}x${this.product.width}x${this.product.length}`);
+            await fetch(`http://165.232.127.22:8080/?addFurniture&sku=${this.product.SKU}&name=${this.product.name}&price=${this.product.price}&dimension=${this.product.height}x${this.product.width}x${this.product.length}`, {
+                          mode: 'no-cors',
+                        });
             setTimeout(() => {
                 this.$router.push('/');
               }, 500);
